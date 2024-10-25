@@ -38,30 +38,84 @@
 
 
 // Your code here:
-const booksArray = [];
+let book1 = {
+  title:'The Old Man and the Sea',
+  pages:128,
+  author:'Ernest Hemingway',
+  details: {
+    language: 'English',
+    description: 'One of Hemingway\'s most famous works, it tells the story of Santiago...'
+  }
+}
 
+let book2 = {
+  title:'The Airbnb Story',
+  pages:256,
+  author:'Leight Gallagher',
+  details:{
+    language: 'English',
+    description: 'This is the remarkable behind-the-scenes story of the creation and growth of Airbnb...'
+  }
+}
+
+let book3 = {
+  title:'Educated - A Memoir',
+  pages:352,
+  author:'Tara Westover',
+  details:{
+    language: 'English',
+    description: 'Educated is an account of the struggle for self-invention...'
+  }
+}
+
+let book4 = {
+  title:'The Art of Learning',
+  pages:288,
+  author:'Josh Waitzkin',
+  details:{
+    language: 'English',
+    description: 'The Art of Learning takes readers through Waitzkin\'s unique journey to excellence. He explains in clear detail how a well-thought-out, principled approach to learning is what separates success from failure.'
+  }
+}
+
+const booksArray = [book1,book2,book3,book4];
 
 
 
 // Iteration 2 | Book Details
-function getBookDetails() {
-  // Your code here:
-
+function getBookDetails(book) {
+  return book.title + " - " + book.author + " - " + book.pages + " pages";
 }
 
+console.log(getBookDetails(book1));
+console.log(getBookDetails(book2));
+console.log(getBookDetails(book3));
+console.log(getBookDetails(book4));
 
 
 // Iteration 3 | Delete Language
-// Your code here:
 
+booksArray.forEach(book => {
+  delete book.details.language;
+});
 
+console.log(getBookDetails(book1));
+console.log(getBookDetails(book2));
+console.log(getBookDetails(book3));
+console.log(getBookDetails(book4));
 
 
 // Iteration 4 | Estimated Reading Time
 // Your code here:
 
+booksArray.forEach(book => {
+  book.readingTime = Math.ceil((book.pages * 500) / 90);
+});
 
-
+console.log(book1.readingTime);
+console.log(book2.readingTime);
+console.log(book3.readingTime);
+console.log(book4.readingTime);
 
 // Bonus: Iteration 5 | Books Dictionary
 
@@ -86,15 +140,32 @@ const dictionary = {
     ],
 };
 
-function booksByAuthor() {
-  // Your code here:
-  
+function booksByAuthor(dictionary) {
+  let finalArr = new Array();
+  for (const [key, value] of Object.entries(dictionary)){
+    for(let i = 0; i < value.length; i++){
+      let book = {
+        author: key,
+        title: value[i][0],
+        pages: value[i][1]
+      }
+      finalArr.push(book);
+      console.log(getBookDetails(book));
+    }
+  }
+  return finalArr;
 }
 
-
+console.log(booksByAuthor(dictionary));
 
 // Bonus: Iteration 6 | Average Page Count
-function averagePageCount() {
-  // Your code here:
-  
+function averagePageCount(booksArray) {
+  let pageCount = 0;
+  booksArray.forEach(book => {
+    pageCount += book.pages;
+  });
+  pageCount /= booksArray.length;
+  return pageCount;
 }
+
+console.log(averagePageCount(booksArray));
